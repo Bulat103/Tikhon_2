@@ -21,8 +21,6 @@ html {
 }
 
 .preloader.hidden {
-  /* opacity: 0;
-  pointer-events: none; */
   display: none;
 }
 
@@ -354,4 +352,38 @@ h2,
 [data-tag].disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.vidoes_container {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 20px;
+}
+
+.preview_img_container {
+  position: relative;
+}
+
+.video,
+.preview_img_container img,
+iframe {
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.start_play {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
 }
