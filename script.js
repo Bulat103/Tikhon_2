@@ -2,11 +2,20 @@ const items = [
   {
     id: "68",
     preview: "https://musicreel.moscow/pics/rzd.jpg",
-    video: "https://player.vimeo.com/video/915310027?h=d272ad52ce",
+    video: "https://player.vimeo.com/video/915310027?h=d272ad52ce&autoplay=1",
     tags: "rzd uprising music epic beats synth string orchestral cinematic",
     width: 200,
     height: 200,
     format: "vimeo",
+  },
+  {
+    id: "4",
+    preview: "https://musicreel.moscow/pics/zarina/zarina_20.jpg",
+    video: "https://www.youtube.com/embed/u_OTfAIx1GU?autoplay=1",
+    tags: "zarina music beats songs vocal hip-hop",
+    width: 300,
+    height: 200,
+    format: "youtube",
   },
   {
     id: "1",
@@ -15,7 +24,7 @@ const items = [
     tags: "other music guitar rock dark vocal foley soundfx cinematic",
     width: 300,
     height: 200,
-    format: "mp4",
+    format: "mov",
   },
   {
     id: "2",
@@ -35,20 +44,13 @@ const items = [
     height: 200,
     format: "mov",
   },
-  {
-    id: "4",
-    preview: "https://musicreel.moscow/pics/zarina/zarina_20.jpg",
-    video: "https://www.youtube.com/embed/u_OTfAIx1GU",
-    tags: "zarina music beats songs vocal hip-hop",
-    width: 300,
-    height: 200,
-    format: "youtube",
-  },
 ];
 
 // -----------------------------------------------------------------------
 const windowWidth = window.innerWidth;
 let scale = 1;
+let mobile = false;
+
 if (windowWidth > 1500) {
   scale = 2.2;
 } else if (windowWidth > 1200) {
@@ -57,9 +59,26 @@ if (windowWidth > 1500) {
   scale = 1.3;
 }
 
+if (
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+) {
+  scale = 2;
+  mobile = true;
+}
 // -----------------------------------------------------------------------
 const createPlayBtn = () => {
   const btn = document.createElement("button");
+  let buttonSize;
+  if (mobile) {
+    buttonSize = `${scale * 2 * 30}px`;
+  } else {
+    buttonSize = `${scale * 30}px`;
+  }
+  console.log(buttonSize);
+  btn.style.fontSize = buttonSize;
+
   btn.classList.add("start_play");
   btn.innerText = "Play";
   return btn;
@@ -69,8 +88,6 @@ const createPlayBtn = () => {
 const createImg = (item) => {
   const img = document.createElement("img");
   img.setAttribute("src", item.preview);
-  img.setAttribute("width", item.width * scale);
-  img.setAttribute("height", item.height * scale);
   img.setAttribute("id", `video_${item.id}`);
   img.setAttribute("class", "preview_img");
   return img;
@@ -105,8 +122,7 @@ const replaceVideoWithImg = (currentVideo) => {
   const elem = items.find((item) => item.id === parentId);
   const img = createImg(elem);
   prevVideo.replaceWith(img);
-  const btn = createPlayBtn();
-  prevVideoParent.append(btn);
+  prevVideoParent.querySelector("button").style.display = "block";
 };
 
 const videoFormats = ["mov", "mp4"];
@@ -117,10 +133,13 @@ const replaceImgWithVideo = (item) => {
   const img = imgContainer.querySelector(`img`);
   const btn = imgContainer.querySelector(`button`);
   let videoElement;
-  if (videoFormats.some((el) => item.format === el)) {
+  const isEmbedded = videoFormats.some((el) => item.format === el);
+
+  if (isEmbedded) {
     videoElement = document.createElement("video");
     videoElement.setAttribute("controls", true);
     videoElement.setAttribute("autoplay", true);
+    videoElement.play();
   } else {
     videoElement = document.createElement("iframe");
     videoElement.setAttribute("frameborder", "0");
@@ -129,11 +148,10 @@ const replaceImgWithVideo = (item) => {
   }
 
   videoElement.setAttribute("src", item.video);
-  videoElement.setAttribute("width", item.width * scale);
-  videoElement.setAttribute("height", item.height * scale);
   replaceVideoWithImg(item);
   img.replaceWith(videoElement);
-  btn.remove();
+
+  btn.style.display = "none";
 };
 
 // -----------------------------------------------------------------------
@@ -145,13 +163,14 @@ const renderPreview = (videos) => {
     container.setAttribute("data-tags", item.tags);
     container.setAttribute("id", `video_${item.id}`);
     container.setAttribute("data-number", number);
-    container.style.width = item.width;
-    container.style.height = item.height;
+    container.style.width = `${item.width * scale}px`;
+    container.style.height = `${item.height * scale}px`;
+
     const img = createImg(item);
     const btn = createPlayBtn();
     container.append(img);
     container.append(btn);
-    container.addEventListener("click", () => replaceImgWithVideo(item));
+    btn.addEventListener("click", () => replaceImgWithVideo(item));
     vidoesContainer.append(container);
   };
 
