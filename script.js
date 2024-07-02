@@ -1,6 +1,6 @@
 const items = [
   {
-    id: "68",
+    id: "618",
     preview: "https://musicreel.moscow/pics/rzd.jpg",
     video: "https://player.vimeo.com/video/915310027?h=d272ad52ce&autoplay=1",
     tags: "rzd uprising music epic beats synth string orchestral cinematic",
@@ -29,7 +29,7 @@ const items = [
   {
     id: "2",
     preview: "https://musicreel.moscow/pics/casio_gshock.jpg",
-    video: "https://player.vimeo.com/video/710819339?h=4e09a7b8f5",
+    video: "https://player.vimeo.com/video/710819339?h=4e09a7b8f5&autoplay=1",
     tags: "casio piano music orchestal string epic cinematic uprising",
     width: 300,
     height: 200,
@@ -41,6 +41,63 @@ const items = [
     video: "https://musicreel.moscow/vids/zg_3mugs.mov",
     tags: "orchestal string epic cinematic",
     width: 300,
+    height: 200,
+    format: "mov",
+  },
+  {
+    id: "70",
+    preview: "https://musicreel.moscow/pics/zg/zg_3mugs.jpg",
+    video: "https://musicreel.moscow/vids/zg_3mugs.mov",
+    tags: "orchestal string epic cinematic",
+    width: 300,
+    height: 200,
+    format: "mov",
+  },
+
+  {
+    id: "69",
+    preview: "https://musicreel.moscow/pics/baltika/baltika_7.jpg",
+    video: "https://musicreel.moscow/vids/baltika_7.mov",
+    tags: "other music guitar rock dark vocal foley soundfx cinematic",
+    width: 300,
+    height: 200,
+    format: "mov",
+  },
+
+  {
+    id: "68",
+    preview: "https://musicreel.moscow/pics/rzd.jpg",
+    video: "https://player.vimeo.com/video/915310027?h=d272ad52ce",
+    tags: "rzd uprising music epic beats synth string orchestral cinematic",
+    width: 300,
+    height: 200,
+    format: "vimeo",
+  },
+
+  {
+    id: "67",
+    preview: "https://musicreel.moscow/pics/bork/bork_MaskLuzhnik.jpg",
+    video: "https://musicreel.moscow/vids/bork_MaskLuzhnik.mov",
+    tags: "bork music electronic beats synth string orchestral cinematic",
+    width: 200,
+    height: 200,
+    format: "mov",
+  },
+  {
+    id: "66",
+    preview: "https://musicreel.moscow/pics/bork/bork_Styler.jpg",
+    video: "https://musicreel.moscow/vids/bork_Styler.mov",
+    tags: "bork music electronic beats synth string orchestral cinematic",
+    width: 200,
+    height: 200,
+    format: "mov",
+  },
+  {
+    id: "65",
+    preview: "https://musicreel.moscow/pics/bork/bork_decanther.jpg",
+    video: "https://musicreel.moscow/vids/bork_decanther.mov",
+    tags: "bork music acoustic funky cinematic",
+    width: 200,
     height: 200,
     format: "mov",
   },
@@ -64,7 +121,7 @@ if (
     navigator.userAgent
   )
 ) {
-  scale = 2;
+  scale = 2.5;
   mobile = true;
 }
 // -----------------------------------------------------------------------
@@ -72,7 +129,7 @@ const createPlayBtn = () => {
   const btn = document.createElement("button");
   let buttonSize;
   if (mobile) {
-    buttonSize = `${scale * 2 * 30}px`;
+    buttonSize = `${scale * 1.5 * 30}px`;
   } else {
     buttonSize = `${scale * 30}px`;
   }
