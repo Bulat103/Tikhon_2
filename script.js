@@ -128,16 +128,15 @@ if (
 const createPlayBtn = () => {
   const btn = document.createElement("button");
   let buttonSize;
+
   if (mobile) {
     buttonSize = `${scale * 1.5 * 30}px`;
   } else {
     buttonSize = `${scale * 30}px`;
   }
-  console.log(buttonSize);
-  btn.style.fontSize = buttonSize;
-
+  const playIcon = `<?xml version="1.0" ?><svg class="feather feather-play" fill="none"  stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 22 22" height="${buttonSize}" width="${buttonSize}" xmlns="http://www.w3.org/2000/svg"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
   btn.classList.add("start_play");
-  btn.innerText = "Play";
+  btn.innerHTML = playIcon;
   return btn;
 };
 
@@ -177,6 +176,9 @@ const replaceVideoWithImg = (currentVideo) => {
   const prevVideoParent = prevVideo.parentElement;
   let parentId = prevVideoParent.getAttribute("id").split("_")[1];
   const elem = items.find((item) => item.id === parentId);
+  prevVideoParent.style.width = `${elem.width * scale}px`;
+  prevVideoParent.style.height = `${elem.height * scale}px`;
+
   const img = createImg(elem);
   prevVideo.replaceWith(img);
   prevVideoParent.querySelector("button").style.display = "block";
@@ -206,6 +208,11 @@ const replaceImgWithVideo = (item) => {
 
   videoElement.setAttribute("src", item.video);
   replaceVideoWithImg(item);
+  if (!mobile) {
+    img.parentElement.style.width = `${item.width * scale * 1.5}px`;
+    img.parentElement.style.height = `${item.height * scale * 1.5}px`;
+  }
+
   img.replaceWith(videoElement);
 
   btn.style.display = "none";
